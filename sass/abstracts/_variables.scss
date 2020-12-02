@@ -1,0 +1,44 @@
+/// Breakpoints map
+$breakpoints: (
+  'small':  ( min-width:  640px ),
+  'medium': ( min-width:  992px ),
+  'large':  ( min-width: 1200px )
+) !default;
+
+
+///font-sizes map
+$font-sizes: (
+	"xxs": (1rem / 1.03) / 1.09,
+	"xs": (1rem / 1.03) / 1.03,
+	"s": 1rem / 1.03,
+	"nm": 1rem,
+	"l": 1rem * 1.2,
+	"xl": 1rem * 1.2 * 1.1,
+	"xxl": 1rem * 1.2 * 1.2 * 1.2,
+);
+
+/// font-weights map
+$font-weights: (
+	"light": 300,
+	"semi-bold": 600,
+	"extra-bold": 800,
+);
+
+///Theme-colors map
+$dark: (
+	"elment": hsl(209, 23%, 22%),
+	"text": hsl(0, 0%, 100%),
+	"bg": hsl(207, 26%, 17%),
+);
+
+$light: (
+	"text": hsl(200, 15%, 8%),
+	"element": hsl(0, 0%, 100%),
+	"bg": hsl(0, 0%, 98%),
+	"input": hsl(0, 0%, 52%),
+);
+
+/// Container's maximum width
+/// @type Length
+$max-width: 1280px !default;
+

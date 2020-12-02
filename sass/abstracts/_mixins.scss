@@ -1,0 +1,35 @@
+// -----------------------------------------------------------------------------
+// This file contains all application-wide Sass mixins.
+// -----------------------------------------------------------------------------
+@mixin attention{
+    &:hover,
+    &:active,
+    &:focus {
+      @content;
+    }
+  
+}
+
+
+@mixin pd-vert($value){
+  padding: #{$value}em 0;
+}
+
+
+@mixin shadow1{
+  box-shadow: 1px 1px 8px rgba($color: #000000, $alpha: 0.1);
+}
+
+@mixin bd-radius($value){
+  
+  border-radius: #{$value}px;
+}
+
+@mixin respond-to($breakpoint){
+  @if map-has-key($map: $breakpoints, $key: $breakpoint){
+     @media #{inspect(map-get($breakpoints,$breakpoint))} {
+       @content;
+     }
+  }
+}
+

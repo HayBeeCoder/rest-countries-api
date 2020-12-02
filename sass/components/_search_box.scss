@@ -1,0 +1,35 @@
+.search-box{
+    @include bd-radius(5);
+    background: light-theme--clr(element);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 12px;
+  @include shadow1;
+    &__icon{
+        display: grid;
+        padding: 0 15px ;
+        cursor: pointer;
+        &-search{
+            color: light-theme--clr(input);
+             font-size: font-size(l);
+            height: 18px;
+        }
+    }
+    &__input{
+        flex: 1;
+        input{
+            color: light-theme--clr(input);
+             border: none;
+            outline: none;
+            width: 100%;
+            background: transparent;
+            font-size: font-size(xxs);
+            &::placeholder{
+             color: light-theme--clr(input);
+            
+            }
+        }
+    }
+
+}

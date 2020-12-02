@@ -1,0 +1,19 @@
+// -----------------------------------------------------------------------------
+// This file contains all styles related to the header of the site/application.
+// -----------------------------------------------------------------------------
+
+.header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    background: light-theme--clr(element);
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+    &__container{
+        @include pd-vert(1.5);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        }
+}

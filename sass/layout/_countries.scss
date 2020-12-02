@@ -1,0 +1,23 @@
+.countries{
+    @include pd-vert(2);
+    &--not-found{
+        display: none;
+       text-align: center;
+        font-size: font-size(xl);
+    }
+
+   
+    @include respond-to(small){
+        &__container{
+             display: grid;
+             grid-template-columns: repeat(auto-fit , minmax(300px,1fr));
+             grid-gap: 15px;
+             margin: 0 auto;
+        }
+    }
+    @include respond-to(medium){
+&__container{
+    grid-template-columns: repeat(4,1fr);
+}
+    }
+}

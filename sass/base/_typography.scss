@@ -1,0 +1,16 @@
+/**
+ * Basic typography style for copy text
+ */
+ html{
+   font-size: #{get-em-value(14)}rem;
+ }
+body {
+  color: clr(light, text);
+  background-color: light-theme--clr(bg);
+  font-family: 'Nunito Sans', sans-serif;  
+  font-size:  font-size(nm);
+}
+
+h1{
+  font-size: font-size(xl);
+}

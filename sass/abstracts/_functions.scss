@@ -1,0 +1,19 @@
+@function get-em-value($px-value){
+    @return $px-value/16;
+}
+
+@function font-size($size){
+    @return map-get($map: $font-sizes, $key: $size);
+}
+
+@function font-weight($size){
+    @return map-get($map: $font-weights, $key: $size);
+}
+
+@function dark-theme--clr($key){
+  @return map-get($map: $dark, $key: $key);
+}
+
+@function light-theme--clr($key){
+    @return map-get($map: $light, $key: $key);
+}

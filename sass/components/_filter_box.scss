@@ -1,0 +1,72 @@
+.filter-box {
+	@include shadow1;
+	@include bd-radius(5);
+	position: relative;
+	background: light-theme--clr(element);
+	max-width: 200px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 2px 25px;
+	background-color: light-theme--clr(element);
+	&__text {
+		font-size: font-size(xxs);
+		color: light-theme--clr(text);
+	}
+	&__icon {
+		padding: 8px;
+		display: flex;
+		cursor: pointer;
+		ion-icon {
+			font-size: font-size(xs);
+		}
+	}
+
+	&__list {
+		@include bd-radius(5);
+		position: absolute;
+		top: 75%;
+		left: 0;
+		width: 100%;
+		background-color: light-theme--clr(element);
+		display: flex;
+		transform: translate(30%, -55%) scale(0);
+		transition: 0.35s ease;
+		flex-direction: column;
+		justify-content: center;
+		padding: 25px;
+		&:not(:focus::within){
+			display: none;
+		}
+		&-item {
+			padding: 2px;
+			display: flex;
+			align-items: center;
+			height: max-content;
+			&--bg-gray {
+				background: darken(light-theme--clr(bg), 0.1%);
+			}
+		}
+
+		&--show {
+			transform: translate(0) scale(1);
+			opacity: 1;
+		}
+		label {
+			padding: 5px 0;
+			margin: 0;
+			display: inline-block;
+			width: 100%;
+		}
+		input[type="radio"] {
+			appearance: none;
+			-webkit-appearance: none;
+			-moz-appearance: none;
+		}
+	}
+	&__item {
+		cursor: pointer;
+		padding: 5px 0;
+		margin: 10px 0;
+	}
+}

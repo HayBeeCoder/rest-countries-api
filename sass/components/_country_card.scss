@@ -1,0 +1,35 @@
+.country{
+     @include bd-radius(5);
+    @include shadow1;
+    overflow: hidden;
+    margin: 30px auto;
+      max-width: 350px;
+    
+    &__img-wrapper{
+        width: 100%;
+        max-height: 300px;
+        overflow: hidden;
+    }
+    &__details{
+        padding: 15px 15px 35px 15px;
+    }
+    &__name{
+        font-weight: font-weight(extra-bold);
+    }
+    &__info{
+        display: block;
+        margin: 8px 0;
+        p{
+            display: inline-block;
+            margin: 0 5px 0 0;
+            &:first-of-type{
+                font-weight: font-weight(semi-bold);
+            }
+        }
+    }
+    @include respond-to(small){
+        margin: 0;
+    }
+
+}
+

@@ -1,0 +1,30 @@
+.toggle{
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+    align-items: flex-end;
+   
+    &__icon{
+        padding-bottom: 2px;
+        display: none;
+        transform: translateY(-100%);
+       opacity: 0;
+       transition: all 0.5s ease;
+        &-active{
+            transform: translateX(0%);
+            transition: all 0.5s ease;
+            opacity: 1;
+            display: block;
+           
+        }
+    }
+    
+    &__text{
+        display: block;
+        font-size: font-size(xs);
+        text-transform: capitalize;
+        font-weight: font-weight(semi-bold);
+      
+    }
+}
+
