@@ -4,8 +4,10 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 12px;
-  @include shadow1;
+     padding: 15px 12px;
+     width: 100%;
+     max-width: 450px;
+   @include shadow1;
     &__icon{
         display: grid;
         padding: 0 15px ;
@@ -31,5 +33,5 @@
             }
         }
     }
-
+  
 }

@@ -10,14 +10,19 @@
     @include respond-to(small){
         &__container{
              display: grid;
-             grid-template-columns: repeat(auto-fit , minmax(300px,1fr));
+             grid-template-columns: repeat(2,1fr);
              grid-gap: 15px;
              margin: 0 auto;
         }
     }
     @include respond-to(medium){
-&__container{
-    grid-template-columns: repeat(4,1fr);
-}
+        &__container{
+            grid-template-columns: repeat(3,1fr);
+        }
+    }
+    @include respond-to(large){
+        &__container{
+            grid-template-columns: repeat(4,1fr);
+        }
     }
 }

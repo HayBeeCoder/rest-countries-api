@@ -53,7 +53,7 @@ window.onload = function () {
 	}
 
 	request_countries(baseUrl + "all?fields=" + baseURl_params);
-	toggler.addEventListener("click", toggle);
+	// toggler.addEventListener("click", toggle);
 	search_input.addEventListener("change", search);
 	filter_icon.addEventListener("click", toggle_filterList);
 	style_filterItem_selected();
@@ -117,7 +117,6 @@ function search() {
 function toggle_filterList() {
 	if (!filter_list__shown) {
 		filter_list.classList.add("filter-box__list--show");
-		//
 		filter_list__shown = true;
 	} else {
 		filter_list.classList.remove("filter-box__list--show");

@@ -1,10 +1,17 @@
 .search{
     &__container{
         @include pd-vert(2.4);
-       display: flex;
+           display: flex;
        flex-direction: column;
        justify-content: center;
-       align-items: stretch;
+       flex-wrap: wrap;
+       align-items: center;
        gap: 24px;
+    }
+    @include respond-to(small){
+        &__container{
+        flex-direction: row;
+        justify-content: space-between;
+        }
     }
 }
