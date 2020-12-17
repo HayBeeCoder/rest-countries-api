@@ -1,34 +1,120 @@
-const main = document.querySelector(".main");
 
-/*function render_country(country) {
-	while ((country_complete = document.querySelector(".country-complete"))) {
-		document.removeChild(country_complete);
-	}
-	let clone = country_template.content.firstElementChild.cloneNode(true);
-	clone.querySelector(".country-complete__img-wrapper img").src = country.flag;
-	clone.querySelector(".country-complete__value--nativeName").textContent =
-		country.nativeName;
-	clone.querySelector(".country-complete__value--population").textContent =
-		country.population;
-	clone.querySelector(".country-complete__value--region").textContent =
-		country.region;
-	clone.querySelector(".country-complete__value--subRegion").textContent =
-		country.subRegion;
-	clone.querySelector(".country-complete__value--capital").textContent =
-		country.capital;
-	// clone.querySelector('.country-complete__value--currencies').textContent =
-	clone.querySelector(".country-complete__value--topLevelDomain").textContent =
-		country.topLevelDomain;
-	clone.querySelector(
-		".country-complete__value--language"
-	).textContent = country.language.join();
-	main.appendChild(clone);
-}*/
-// let light = true;
-
+const countriesContainer = document.querySelector('.countries__container');
 const baseUrl = "https://restcountries.eu/rest/v2/";
-let baseURl_params =
-	"flag;name;population;region;subRegion;capital;topLevelDomain;nativeName;currencies;languages;orderCountries";
+let baseURl_params = ['flag','name','population','subRegion','capital','region','topLevelDomain','nativeName','currencies','languages','borderCountries']
+
+window.onload = ()=>{
+	fetchCountries(baseUrl + "all?fields=" + baseURl_params.join(';'))
+
+}
+
+function fetchCountries(url){
+	 fetch(url)
+		.then(response => {
+			console.log(response.status)
+			if(response.status == 200) {
+				return response.json();
+			} else throw response;
+		})
+		.then(displayCountries)
+		.catch(displayNotFound)
+}
+
+
+function displayNotFound(error){
+	if(error.status == 404){
+	countriesContainer.innerHTML = '';
+	const p = document.createElement('p')
+	p.textContent = '..........NOT FOUND.........'
+	p.style.fontStyle = 'italic';
+	p.style.textAlign = 'center'
+	countriesContainer.append(p)	
+	}
+}
+function displayCountries(countries){
+	countriesContainer.innerHTML = '';
+	countries.forEach((country,index) => {
+		countriesContainer.appendChild(buildCountry(country,index))
+	})
+}
+
+
+const getTemplate = (function(){
+	let template ;
+	return function countryTemplate(){
+		if(!template) template = document.querySelector('#country');
+		return template.content.firstElementChild.cloneNode(true);
+	}
+})();
+
+function buildCountry(country,index){
+	console.log(country)
+	const {name ,flag , population , region , capital } = country;
+	const countryTemplate = getTemplate();
+
+	const countryImg = countryTemplate.querySelector('.country__flag');
+	const countryName = countryTemplate.querySelector('.country__heading');
+	const countryPopulation = countryTemplate.querySelector('.country__population');
+	const countryRegion = countryTemplate.querySelector('.country__region');
+	const countryCapital = countryTemplate.querySelector('.country__capital');
+	
+	countryTemplate.dataset.index = index;
+	countryImg.setAttribute('src',flag);
+	countryName.textContent = name;
+	countryPopulation.textContent = population;
+	countryRegion.textContent = region;
+	countryCapital.textContent = capital;
+
+	return countryTemplate;
+}
+
+
+// searchBox 
+const searchInput = document.querySelector(".search__input");
+searchInput.addEventListener("keypress" , e => {
+	if(e.target.value && e.key == "Enter"){
+		fetchCountries(baseUrl + "name/" + e.target.value + "?fullText=true")
+	}
+})
+
+
+//Filters
+let filtersShown = false;
+const filterIcon = document.querySelector('.filter-box__icon');
+const filterList = document.querySelector('.filter-box__list')
+const filterItems = document.querySelectorAll('.filter-box__key')
+filterIcon.addEventListener("click" , toggleFilterList)
+
+function toggleFilterList() {
+	if (!filtersShown) {
+		filterList.classList.add("filter-box__list--show");
+		filtersShown = true;
+	
+	} else {
+		filterList.classList.remove("filter-box__list--show");
+		filtersShown = false;
+	}
+}
+filterItems.forEach(styleSelectedFilter)
+	
+
+function styleSelectedFilter(item) {
+		item.addEventListener("change", e => {
+			for (let item of filterItems) {
+				item.parentElement.style.background = "";
+				item.parentElement.classList.remove("filter-box__list-item--bg-gray");
+			}
+			if (item.checked) {
+				item.parentElement.classList.add("filter-box__list-item--bg-gray");
+			}
+			if(e.currentTarget.value == "all") 	fetchCountries(baseUrl + "all?fields=" + baseURl_params.join(';'));
+			else fetchCountries(baseUrl + 'region/' + e.currentTarget.value)
+		});
+}
+
+
+
+/*
 const not_found = document.querySelector(".countries--not-found");
 const countries_container = document.querySelector(".countries__container");
 //toggle references
@@ -38,11 +124,13 @@ const toggle_moon = document.querySelector(".toggle__icon-moon");
 const toggle_sunny = document.querySelector(".toggle__icon-sunny");
 // filter references
 const filter_icon = document.querySelector(".filter-box__icon");
+console.log(filter_icon)
 const filter_list = document.querySelector(".filter-box__list");
 const filter_items = document.querySelectorAll(".filter-box__key");
 const filter_item = document.querySelector(".filter-box__key");
-console.log(filter_item);
+// console.log(filter_item);
 
+/*
 let filter_list__shown = false;
 // search refereces
 const search_input = document.querySelector(".search-box__input input");
@@ -54,8 +142,9 @@ window.onload = function () {
 
 	request_countries(baseUrl + "all?fields=" + baseURl_params);
 	// toggler.addEventListener("click", toggle);
-	search_input.addEventListener("change", search);
 	filter_icon.addEventListener("click", toggle_filterList);
+	search_input.addEventListener("change", search);
+	
 	style_filterItem_selected();
 };
 
@@ -115,9 +204,11 @@ function search() {
 }
 
 function toggle_filterList() {
+	console.log(filter_list__shown);
 	if (!filter_list__shown) {
 		filter_list.classList.add("filter-box__list--show");
 		filter_list__shown = true;
+	
 	} else {
 		filter_list.classList.remove("filter-box__list--show");
 		filter_list__shown = false;
@@ -158,7 +249,7 @@ function make_countries_clickable(countries) {
 			render_country(countries[index]);
 		});
 	});
-}*/
+}
 
 function display_countries(countries, targetElement) {
 	const old_element = document.querySelector(targetElement);
@@ -185,15 +276,15 @@ function get_country(country, index) {
 				<h1 class='country__heading'>${name} </h1>
 				<ul class='country__list'>
 					<li class='country__info'>
-						<p class='country__key'>population</p>
+						<p class='country__key'>population: </p>
 						<p class='country__value'>${format_population(String(population))}</p>
 					</li>
 					<li class='country__info'>
-						<p class='country__key'>region</p>
+						<p class='country__key'>region: </p>
 						<p class='country__value'>${region}</p>
 					</li>
 					<li class='country__info'>
-						<p class='country__key'>capital</p>
+						<p class='country__key'>capital: </p>
 						<p class='country__value'>${capital}</p>
 					</li>
 				</ul>
@@ -316,3 +407,4 @@ function get_currencies(currencies) {
 }
 
 // --------------------------------------------------------------------------------------------------
+*/

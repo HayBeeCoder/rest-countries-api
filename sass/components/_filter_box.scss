@@ -26,6 +26,7 @@
 	&__list {
 		@include bd-radius(5);
 		position: absolute;
+		z-index: 2;
 		top: 75%;
 		left: 0;
 		width: 100%;
