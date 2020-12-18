@@ -838,6 +838,19 @@ h1 {
   background: #202c37;
 }
 
+.dark .header {
+  background: #2b3945;
+  background: red;
+}
+
+.dark .country {
+  background: #2b3945;
+}
+
+.dark .search-box {
+  background: #2b3945;
+}
+
 .dark .search-box__icon-search {
   color: white;
 }
@@ -847,7 +860,12 @@ h1 {
 }
 
 .dark .filter-box {
+  background-color: #2b3945;
   color: white;
+}
+
+.dark .filter-box__list {
+  background: #2b3945;
 }
 
 .dark .filter-box__list-item--bg-gray {
@@ -860,5 +878,9 @@ h1 {
 
 .dark .country-complete__value {
   color: #d1d1d1;
+}
+
+.dark .btn {
+  background: #2b3945;
 }
 /*# sourceMappingURL=main.css.map */
