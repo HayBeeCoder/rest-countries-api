@@ -77,7 +77,7 @@ function buildCountry(country,index){
 		completeCountry.style.transform = `translateX(0)`;
 		const backBtn = document.querySelector('.btn--back');
 		backBtn.addEventListener('click' ,()=>{
-		 completeCountry.style.transform = 'translateX(-100%)';
+		 completeCountry.style.transform = 'translateX(100%)';
 		 document.body.style.overflow = 'initial';
 		
 		})
@@ -124,6 +124,7 @@ function styleSelectedFilter(item) {
 			if (item.checked) {
 				item.parentElement.classList.add("filter-box__list-item--bg-gray");
 			}
+	
 			if(e.currentTarget.value == "all") 	fetchCountries(baseUrl + "all?fields=" + baseURl_params.join(';'));
 			else fetchCountries(baseUrl + 'region/' + e.currentTarget.value)
 		});
