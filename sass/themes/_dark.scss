@@ -1,0 +1,47 @@
+.dark{
+    color: dark-theme--clr(text);
+ 
+   background: dark-theme--clr(bg);
+    .header{
+        background: dark-theme--clr(element);
+   
+    }
+    .country{   
+       
+        background: dark-theme--clr(element);
+    }
+    .search-box{
+            background: dark-theme--clr(element);        
+            &__icon-search{
+                    color: dark-theme--clr(text);
+            }
+                   
+            &__input{
+                input{
+                    color: dark-theme--clr(text);
+                }
+            }
+    }
+    .filter-box{
+        background-color: dark-theme--clr(element);
+         color: dark-theme--clr(text);
+        &__list{
+            background: dark-theme--clr(element);
+            &-item--bg-gray {
+                    background: lighten(dark-theme--clr(bg), 0.1%);
+                }
+            
+    
+        }
+       
+    }
+    .country-complete{
+        background: dark-theme--clr(bg);
+        &__value{
+			color: lighten(light-theme--clr(input),30%);
+		}
+    }
+    .btn {
+        background: dark-theme--clr(element);
+    }
+}

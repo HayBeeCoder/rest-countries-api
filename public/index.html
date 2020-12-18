@@ -21,19 +21,94 @@
                 <h1 class='country__heading'> </h1>
                 <ul class='country__list'>
                     <li class='country__info'>
-                        <p class='country__key'>population: </p>
+                        <p class='country__key'>Population: </p>
                         <p class='country__value country__population'></p>
                     </li>
                     <li class='country__info'>
-                        <p class='country__key'>region: </p>
+                        <p class='country__key'>Region: </p>
                         <p class='country__value country__region'></p>
                     </li>
                     <li class='country__info'>
-                        <p class='country__key'>capital: </p>
+                        <p class='country__key'>Capital: </p>
                         <p class='country__value country__capital'></p>
                     </li>
                 </ul>
             </div>
+        </div>
+    </template>
+    <template id="country-detailed">
+        <div class="container country-complete__container">
+            <button class="btn btn--icon btn--back">
+                <span class="btn__icon">
+                    <ion-icon name="arrow-back-outline"></ion-icon>
+                </span>
+                <p class="btn__text">
+                    Back
+                </p>
+            </button>
+            <div class="country-complete__details">
+                <div class="country-complete__img-wrapper">
+                    <img src="" alt="" class="country-complete__img">
+                </div>
+                <div class="country-complete__text-wrapper">
+                    <h1 class="country-complete__name">
+                    </h1>
+                    <div class="country-complete__lists">
+                        <ul class="country-complete__list">
+
+                            <li class="country-complete__info country-complete__info--nativeName">
+                                <p class="country-complete__key">Native Name:</p>
+                                <p class="country-complete__value country-complete__value--nativeName"> </p>
+                            </li>
+
+                            <li class="country-complete__info country-complete__info--population">
+                                <p class="country-complete__key">Population:</p>
+                                <p class="country-complete__value  country-complete__value--population"></p>
+
+                            </li>
+                            <li class="country-complete__info country-complete__info--region">
+                                <p class="country-complete__key">Region:</p>
+                                <p class="country-complete__value country-complete__value--region">${region}</p>
+                            </li>
+                            <li class="country-complete__info">
+                                <p class="country-complete__key country-complete__info--subRegion">Sub Region:
+                                </p>
+                                <p class="country-complete__value country-complete__value--subRegion"> ${subRegion}
+                                </p>
+                            </li>
+                            <li class="country-complete__info">
+                                <p class="country-complete__key country-complete__info--capital">Capital:</p>
+                                <p class="country-complete__value country-complete__value--capital">${capital}</p>
+                            </li>
+                        </ul>
+
+                        <ul class="country-complete__list">
+                            <li class="country-complete__info">
+                                <p class="country-complete__key">Top Level Domain:</p>
+                                <p class="country-complete__value country-complete__value--topLevelDomain "></p>
+                            </li>
+                            <li class="country-complete__info">
+                                <p class="country-complete__key">Currencies:</p>
+                                <p class="country-complete__value country-complete__value--currencies"></p>
+                            </li>
+                            <li class="country-complete__info">
+                                <p class="country-complete__key">Languages:</p>
+                                <p class="country-complete__value country-complete__value--languages"></p>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="country-complete__border">
+                        <p class="country-complete__key">Border Countries:</p>
+                        <div class="country-complete__border-countries">
+                            <button>France</button>
+                            <button>China</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
     </template>
     <header class="header">
@@ -42,12 +117,21 @@
                 Where in the world?
             </h1>
             <div class="toggle">
-                <span class="toggle__icon-wrapper">
-                    <ion-icon name="moon-outline" class="toggle__icon toggle__icon-moon toggle__icon-active"></ion-icon>
-                    <ion-icon name="sunny-outline" class="toggle__icon toggle__icon-sunny"></ion-icon>
+                <span class="toggle__icon-wrapper ">
+                    <span class="translate">
+                        <span>
+                            <ion-icon name="moon-outline" class="toggle__icon toggle__icon-moon">
+                        </span>
+                        <span></ion-icon>
+                            <ion-icon name="sunny-outline" class="toggle__icon toggle__icon-sunny"></ion-icon>
+                        </span>
+                    </span>
                 </span>
-                <span class="toggle__text">
-                    dark mode
+                <span class="toggle__text ">
+                    <span class="translate">
+                        <p>dark mode</p>
+                        <p>light mode</p>
+                    </span>
                 </span>
             </div>
         </div>

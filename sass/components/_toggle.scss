@@ -3,28 +3,44 @@
     gap: 5px;
     cursor: pointer;
     align-items: flex-end;
-   
-    &__icon{
-        padding-bottom: 2px;
-        display: none;
-        transform: translateY(-100%);
-       opacity: 0;
-       transition: all 0.5s ease;
-        &-active{
-            transform: translateX(0%);
-            transition: all 0.5s ease;
-            opacity: 1;
-            display: block;
-           
-        }
+   &__icon-wrapper{
+       width: 14px;
+       height: 16px;
+        overflow: hidden;
+      .translate{
+        @include transition(0.3 , transform);
+          
     }
+       &--translate{
+       .translate{
+           @include transition(0.3 , transform);
+              transform: translateY(-16px);
+       }
+    }
+   }
     
     &__text{
         display: block;
+        width: 100px;
+        overflow: hidden;
+         height: 14px;
+        overflow: hidden;
         font-size: font-size(xs);
         text-transform: capitalize;
         font-weight: font-weight(semi-bold);
-      
-    }
+        .translate{
+            @include transition(0.3 , transform);
+            transform: translateY(-15px);
+            p{
+                display: inline-block;
+                margin: 0;
+            }
+        }
+        &--translate{
+            .translate{
+                @include transition(0.3 , transform);
+               transform: translateY(0); 
+            }
+        }
+   }
 }
-

@@ -33,3 +33,7 @@
   }
 }
 
+@mixin transition($duration,$prop: all){
+  transition: $prop #{$duration}s ease;
+}
+

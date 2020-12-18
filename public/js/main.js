@@ -1,7 +1,8 @@
-
+let countriesArray;
 const countriesContainer = document.querySelector('.countries__container');
+const completeCountry = document.querySelector('.country-complete');
 const baseUrl = "https://restcountries.eu/rest/v2/";
-let baseURl_params = ['flag','name','population','subRegion','capital','region','topLevelDomain','nativeName','currencies','languages','borderCountries']
+let baseURl_params = ['flag','name','population','subregion','capital','region','topLevelDomain','nativeName','currencies','languages','borderCountries']
 
 window.onload = ()=>{
 	fetchCountries(baseUrl + "all?fields=" + baseURl_params.join(';'))
@@ -32,8 +33,10 @@ function displayNotFound(error){
 	}
 }
 function displayCountries(countries){
+	countriesArray = countries
 	countriesContainer.innerHTML = '';
 	countries.forEach((country,index) => {
+
 		countriesContainer.appendChild(buildCountry(country,index))
 	})
 }
@@ -41,8 +44,8 @@ function displayCountries(countries){
 
 const getTemplate = (function(){
 	let template ;
-	return function countryTemplate(){
-		if(!template) template = document.querySelector('#country');
+	return function countryTemplate(id){
+		if(!template) template = document.getElementById(id);
 		return template.content.firstElementChild.cloneNode(true);
 	}
 })();
@@ -50,7 +53,7 @@ const getTemplate = (function(){
 function buildCountry(country,index){
 	console.log(country)
 	const {name ,flag , population , region , capital } = country;
-	const countryTemplate = getTemplate();
+	const countryTemplate = getTemplate('country');
 
 	const countryImg = countryTemplate.querySelector('.country__flag');
 	const countryName = countryTemplate.querySelector('.country__heading');
@@ -65,6 +68,20 @@ function buildCountry(country,index){
 	countryRegion.textContent = region;
 	countryCapital.textContent = capital;
 
+	countryTemplate.addEventListener('click' , e => {
+		completeCountry.innerHTML = '';
+		console.log(countriesArray )
+		console.log((countriesArray[e.currentTarget.dataset.index]))
+		completeCountry.append(complete(countriesArray[e.currentTarget.dataset.index]));
+		document.body.style.overflow = 'hidden';
+		completeCountry.style.transform = `translateX(0)`;
+		const backBtn = document.querySelector('.btn--back');
+		backBtn.addEventListener('click' ,()=>{
+		 completeCountry.style.transform = 'translateX(-100%)';
+		 document.body.style.overflow = 'initial';
+		
+		})
+	})
 	return countryTemplate;
 }
 
@@ -112,6 +129,62 @@ function styleSelectedFilter(item) {
 		});
 }
 
+
+
+function complete(country){
+	const {languages,flag,name,population,region,capital,nativeName,subregion,currencies,borderCountries,topLevelDomain} = country;
+	const completeTemplate  = document.querySelector('#country-detailed').content.firstElementChild.cloneNode(true);
+	console.log(completeTemplate)
+	const _img = completeTemplate.querySelector('.country-complete__img');
+	console.log(_img)
+	const _name = completeTemplate.querySelector('.country-complete__name');
+	const _nativeName = completeTemplate.querySelector('.country-complete__value--nativeName');
+	const _population = completeTemplate.querySelector('.country-complete__value--population');
+	const _region = completeTemplate.querySelector('.country-complete__value--region');
+	const _subRegion = completeTemplate.querySelector('.country-complete__value--subRegion');
+	const _capital = completeTemplate.querySelector('.country-complete__value--capital');
+	const _topLevelDomain = completeTemplate.querySelector('.country-complete__value--topLevelDomain');
+	const _currencies = completeTemplate.querySelector('.country-complete__value--currencies');
+	const _borderCountries = completeTemplate.querySelector('.country-complete__border-countries');
+	const _languages = completeTemplate.querySelector('.country-complete__value--languages')
+	_img.setAttribute('src',flag)
+	_img.setAttribute('alt' , name + ' flag');
+	_name.textContent = name;
+	_nativeName.textContent = nativeName;
+	_population.textContent = population;
+	_region.textContent = region;
+	_subRegion.textContent = subregion;
+	_capital.textContent = capital;
+	_topLevelDomain.textContent = topLevelDomain;
+	_currencies.textContent = currencies.map(currency => currency.code).join();
+	_borderCountries.textContent = borderCountries;
+	_languages.textContent = languages.map(language => language.name).join();
+		
+	return completeTemplate
+}
+
+
+
+// Toggle switch 
+let light = true;
+const toggleIconWrapper = document.querySelector('.toggle__icon-wrapper');
+const toggleText = document.querySelector('.toggle__text')
+const toggle = document.querySelector('.toggle');
+toggle.addEventListener('click' , ()=>{
+	 if(light){
+		 console.log('hello')
+		 toggleIconWrapper.classList.add('toggle__icon-wrapper--translate')
+		 toggleText.classList.add('toggle__text--translate');
+		 document.body.classList.add('dark');
+		 light = false;
+	 }else{
+		toggleIconWrapper.classList.remove('toggle__icon-wrapper--translate');
+		toggleText.classList.remove('toggle__text--translate');
+		document.body.classList.remove('dark');
+		light = true;
+
+	 }
+})
 
 
 /*
@@ -308,37 +381,6 @@ function get_complete_country(country) {
 	} = country;
 
 	return `
-	<div class="container country-complete__container">
-		<button class="btn btn--icon">
-			<div class="yellow"></div>
-			<span class="btn__icon">
-				<ion-icon name="arrow-back-outline"></ion-icon>
-			</span>
-			<p class="btn__text">
-				Back
-			</p>
-		</button>
-		<div class="country-complete__details">
-			<div class="country-complete__img-wrapper">
-				<img src="	${flag}" alt="${name} flag">
-			</div>
-			<div class="country-complete__text-wrapper">
-				<h1 class="country-complete__name">
-					${name}
-				</h1>
-				<div class="country-complete__lists">
-					<ul class="country-complete__list">
-
-						<li class="country-complete__info country-complete__info--nativeName">
-							<p class="coul.ntry-complete__key">Native Name:</p>
-							<p class="country-complete__value country-complete__value--nativeName">${nativeName}
-							</p>
-						</li>
-
-						<li class="country-complete__info country-complete__info--population">
-							<p class="country-complete__key">Population:</p>
-							<p class="country-complete__value  country-complete__value--population">
-								${format_population(String(population))}</p>
 						</li>
 						<li class="country-complete__info country-complete__info--region">
 							<p class="country-complete__key">Region:</p>

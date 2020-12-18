@@ -9,10 +9,11 @@
 	justify-content: space-between;
 	align-items: center;
 	padding: 2px 25px;
+	color: light-theme--clr(text);
+	
 	background-color: light-theme--clr(element);
 	&__text {
 		font-size: font-size(xxs);
-		color: light-theme--clr(text);
 	}
 	&__icon {
 		padding: 8px;
@@ -37,6 +38,7 @@
 		flex-direction: column;
 		justify-content: center;
 		padding: 25px;
+		// color: cu
 		&:not(:focus::within){
 			display: none;
 		}

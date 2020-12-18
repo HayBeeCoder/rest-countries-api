@@ -21,7 +21,6 @@
 // 4. Layout-related sections
 @import
   'layout/header',
-  'layout/footer',
   'layout/search',
   'layout/countries';
 
@@ -40,4 +39,4 @@
 
 // 7. Themes
 @import
-  'themes/default';
+  'themes/dark';

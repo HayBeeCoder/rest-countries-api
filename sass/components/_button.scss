@@ -6,6 +6,7 @@
 	border: 0;
 	outline: 0;
 	padding: 12px 35px;
+	color: inherit;
 	background-color: light-theme--clr(element);
 	cursor: pointer;
 	&--icon {
@@ -19,8 +20,6 @@
 	}
 	&__text {
 		margin: 0;
-		// color: orange;
-		// background-color: purple;
 		font-size: font-size(l);
 	}
 }

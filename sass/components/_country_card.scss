@@ -1,6 +1,7 @@
 .country{
      @include bd-radius(5);
     @include shadow1;
+    cursor: pointer;
     overflow: hidden;
     margin: 30px auto;
       max-width: 350px;
