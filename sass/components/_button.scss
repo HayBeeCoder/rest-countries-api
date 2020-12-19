@@ -2,13 +2,8 @@
 // This file contains all styles related to the button component.
 // -----------------------------------------------------------------------------
 .btn {
-	@include shadow1;
-	border: 0;
-	outline: 0;
+	@extend %btn;
 	padding: 12px 35px;
-	color: inherit;
-	background-color: light-theme--clr(element);
-	cursor: pointer;
 	&--icon {
 		display: inline-flex;
 		justify-content: center;

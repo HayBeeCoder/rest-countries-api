@@ -1,8 +1,10 @@
 let countriesArray;
+let countriesArrayWithAlpaCode;
 const countriesContainer = document.querySelector('.countries__container');
 const completeCountry = document.querySelector('.country-complete');
 const baseUrl = "https://restcountries.eu/rest/v2/";
-let baseURl_params = ['flag','name','population','subregion','capital','region','topLevelDomain','nativeName','currencies','languages','borderCountries']
+const searchInput = document.querySelector(".search__input");
+let baseURl_params = ['alpha3Code','flag','name','population','subregion','capital','region','topLevelDomain','nativeName','currencies','languages','borders']
 
 window.onload = ()=>{
 	fetchCountries(baseUrl + "all?fields=" + baseURl_params.join(';'))
@@ -33,10 +35,15 @@ function displayNotFound(error){
 	}
 }
 function displayCountries(countries){
-	countriesArray = countries
-	countriesContainer.innerHTML = '';
-	countries.forEach((country,index) => {
+	//  console.log(countries[0][alpha3Code]);
+	countriesArray = countries;
 
+	 countriesArrayWithAlpaCode = countriesArray.map(country => country['alpha3Code']);
+	 console.log(countriesArrayWithAlpaCode)
+	countriesContainer.innerHTML = '';
+	console.log('onowowo')
+	countries.forEach((country,index) => {
+		searchInput.value = '';
 		countriesContainer.appendChild(buildCountry(country,index))
 	})
 }
@@ -51,7 +58,7 @@ const getTemplate = (function(){
 })();
 
 function buildCountry(country,index){
-	console.log(country)
+	// console.log(country)
 	const {name ,flag , population , region , capital } = country;
 	const countryTemplate = getTemplate('country');
 
@@ -64,15 +71,18 @@ function buildCountry(country,index){
 	countryTemplate.dataset.index = index;
 	countryImg.setAttribute('src',flag);
 	countryName.textContent = name;
-	countryPopulation.textContent = population;
+	countryPopulation.textContent = formatPopulation(population.toString());
 	countryRegion.textContent = region;
 	countryCapital.textContent = capital;
 
-	countryTemplate.addEventListener('click' , e => {
+	countryTemplate.addEventListener('click' ,displayCompleteCountry)
+	return countryTemplate;
+}
+
+//accesses global completeCountry variable
+function displayCompleteCountry(e){
 		completeCountry.innerHTML = '';
-		console.log(countriesArray )
-		console.log((countriesArray[e.currentTarget.dataset.index]))
-		completeCountry.append(complete(countriesArray[e.currentTarget.dataset.index]));
+		completeCountry.append(getcompleteCountry(countriesArray[e.currentTarget.dataset.index]));
 		document.body.style.overflow = 'hidden';
 		completeCountry.style.transform = `translateX(0)`;
 		const backBtn = document.querySelector('.btn--back');
@@ -81,13 +91,10 @@ function buildCountry(country,index){
 		 document.body.style.overflow = 'initial';
 		
 		})
-	})
-	return countryTemplate;
 }
 
 
 // searchBox 
-const searchInput = document.querySelector(".search__input");
 searchInput.addEventListener("keypress" , e => {
 	if(e.target.value && e.key == "Enter"){
 		fetchCountries(baseUrl + "name/" + e.target.value + "?fullText=true")
@@ -132,12 +139,10 @@ function styleSelectedFilter(item) {
 
 
 
-function complete(country){
-	const {languages,flag,name,population,region,capital,nativeName,subregion,currencies,borderCountries,topLevelDomain} = country;
+function getcompleteCountry(country){
+	const {languages,flag,name,population,region,capital,nativeName,subregion,currencies,borders,topLevelDomain} = country;
 	const completeTemplate  = document.querySelector('#country-detailed').content.firstElementChild.cloneNode(true);
-	console.log(completeTemplate)
 	const _img = completeTemplate.querySelector('.country-complete__img');
-	console.log(_img)
 	const _name = completeTemplate.querySelector('.country-complete__name');
 	const _nativeName = completeTemplate.querySelector('.country-complete__value--nativeName');
 	const _population = completeTemplate.querySelector('.country-complete__value--population');
@@ -147,23 +152,42 @@ function complete(country){
 	const _topLevelDomain = completeTemplate.querySelector('.country-complete__value--topLevelDomain');
 	const _currencies = completeTemplate.querySelector('.country-complete__value--currencies');
 	const _borderCountries = completeTemplate.querySelector('.country-complete__border-countries');
-	const _languages = completeTemplate.querySelector('.country-complete__value--languages')
+	const _languages = completeTemplate.querySelector('.country-complete__value--languages');
+
+	handleBorderCountries(borders,_borderCountries);
 	_img.setAttribute('src',flag)
 	_img.setAttribute('alt' , name + ' flag');
 	_name.textContent = name;
 	_nativeName.textContent = nativeName;
-	_population.textContent = population;
+	_population.textContent = formatPopulation(population.toString());
 	_region.textContent = region;
 	_subRegion.textContent = subregion;
 	_capital.textContent = capital;
 	_topLevelDomain.textContent = topLevelDomain;
 	_currencies.textContent = currencies.map(currency => currency.code).join();
-	_borderCountries.textContent = borderCountries;
 	_languages.textContent = languages.map(language => language.name).join();
 		
 	return completeTemplate
 }
 
+function handleBorderCountries(countries,parentElement){
+	if(!countries.length){
+		parentElement.textContent = 'NO BORDER COUNTRIES :('
+	}else{
+		countries.forEach(country => {
+			parentElement.appendChild(makeBorderCountryButton(country))
+		})
+	}
+}
+function makeBorderCountryButton(abbrevCountry){
+	let index = countriesArrayWithAlpaCode.indexOf(abbrevCountry);
+	const button = document.createElement('button');
+	button.classList.add('btn');
+	button.dataset.index = index;
+	button.textContent = countriesArray[index].name;
+	button.addEventListener('click' , displayCompleteCountry);
+	return button;
+}
 
 
 // Toggle switch 
@@ -188,6 +212,17 @@ toggle.addEventListener('click' , ()=>{
 })
 
 
+function formatPopulation(value){
+	let slice , modifiedValue = '';
+	while(value.length > 3){
+		const { length } = value;
+		 slice = value.slice(length-3);
+		 modifiedValue = ','+ slice + modifiedValue;
+		value = value.slice(0,length-3)
+	}
+
+	return value + modifiedValue;
+}
 /*
 const not_found = document.querySelector(".countries--not-found");
 const countries_container = document.querySelector(".countries__container");
