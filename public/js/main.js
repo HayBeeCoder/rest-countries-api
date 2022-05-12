@@ -2,7 +2,7 @@ let countriesArray;
 let countriesArrayWithAlpaCode;
 const countriesContainer = document.querySelector('.countries__container');
 const completeCountry = document.querySelector('.country-complete');
-const baseUrl = "https://restcountries.eu/rest/v2/";
+const baseUrl = "https://restcountries.eu/rest/v3.1/";
 const searchInput = document.querySelector(".search__input");
 let baseURl_params = ['alpha3Code','flag','name','population','subregion','capital','region','topLevelDomain','nativeName','currencies','languages','borders']
 
